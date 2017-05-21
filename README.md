@@ -8,6 +8,7 @@
 
 装各种基础包：webpack等基础包，
 构建基础文件目录：
+```js
 	webpack-project-seed
 						---build     // webpack相关配置文件
 						---dist		 // 编译后的文件目录
@@ -15,15 +16,24 @@
 							---pages		// 页面
 							---components  //组件
 						---unit      // 存放基本模版，libs库等公共相关
+							---layout
+							---libs
 						.eslintrc
 						.gitignore    
 						packet.json  // 依赖包文件
 						server.js   // node服务启动
-
+```
 
 >2、第二步
 
 开发环境的搭建：
+			
+			-	[x] 1、server.js代码编写
+			-	[x] 2、webpack.dev.config.js配置编写
+			-	[x] 3、entry.js获取多页面的文件路径信息编写
+			-	[x] 4、如果没有对应页面的文件夹下面没有模版(index.html),启用unit/layout/webpack_layout.html
+			-	[x] 5、支持vue
+			-	[x] 6、支持postcss
 
 
 ### 最后

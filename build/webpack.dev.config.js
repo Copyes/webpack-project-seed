@@ -9,7 +9,13 @@ const CUT_PATH = './src/pages/';
 const PWD = process.env.PWD || process.cwd(); // 兼容windows
 
 var entries = getEntries(GLOB_FILE_PATH, CUT_PATH);
-let plugins = [];
+
+// 初始自带热更新插件
+let plugins = [
+	// new webpack.optimize.OccurenceOrderPlugin(),
+ //    new webpack.HotModuleReplacementPlugin(),
+ //    new webpack.NoErrorsPlugin()
+];
 // html打包
 const chunksObject = Object.keys(entries).map(pathname => {
     var templatePath = '!!ejs-full-loader!unit/layout/webpack_layout.html';
@@ -30,7 +36,6 @@ const chunksObject = Object.keys(entries).map(pathname => {
 })
 
 chunksObject.forEach(item => {
-	console.log(item.templatePath);
     let conf = {
         filename: './' + item.pathname + '.html',  // 生成的html存放路径，相对于publicPath
         template: item.templatePath, // html模板路径,
@@ -59,6 +64,15 @@ var config = {
 	module: {
 		rules: [
 			{
+				test: /\.vue$/,
+				exclude: /node_modules/,
+				use: [
+					{
+						loader: 'vue-loader'
+					}
+				]
+			},
+			{
 				test: /\.css$/,
 				exclude: /node_modules/,
 				use: [
@@ -67,6 +81,9 @@ var config = {
 					},
 					{
 						loader: 'css-loader'
+					},
+					{
+						loader: 'postcss-loader'
 					}
 				]
 			},
@@ -78,6 +95,9 @@ var config = {
 					},
 					{
 						loader: 'css-loader'
+					},
+					{
+						loader: 'postcss-loader'
 					},
 					{
 						loader: 'less-loader'
@@ -92,23 +112,15 @@ var config = {
 						loader: 'babel-loader?cacheDirectory'
 					}
 				]
-			},
-			// {
-			// 	test: /\.vue$/,
-			// 	exclude: /node_modules/,
-			// 	use: [
-			// 		{
-			// 			loader: 'vue-loader'
-			// 		}
-			// 	]
-			// }
+			}
 		]
 	},
 
 	resolve: {
+        mainFields: ['jsnext:main','main'],
+
 		extensions: ['.js', '.vue', '.less', '.css']
 	},
-
 	plugins: plugins
 }
 
