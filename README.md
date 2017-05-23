@@ -10,18 +10,18 @@
 构建基础文件目录：
 ```js
 	webpack-project-seed
-						---build     // webpack相关配置文件
-						---dist		 // 编译后的文件目录
-						---src       // 源文件
-							---pages		// 页面
-							---components  //组件
-						---unit      // 存放基本模版，libs库等公共相关
-							---layout
-							---libs
-						.eslintrc
-						.gitignore    
-						packet.json  // 依赖包文件
-						server.js   // node服务启动
+	---build     // webpack相关配置文件
+	---dist		 // 编译后的文件目录
+	---src       // 源文件
+		---pages		// 页面
+		---components  //组件
+	---unit      // 存放基本模版，libs库等公共相关
+		---layout
+		---libs
+	.eslintrc
+	.gitignore    
+	packet.json  // 依赖包文件
+	server.js   // node服务启动
 ```
 
 >2、第二步
@@ -38,5 +38,10 @@
 -	[ ] 8、线上打包配置
 -	[x] 9、配置拆分base,dev,prod
 
+>3、第三步
+
+生产环境代码打包
+
+todo:
 
 ### 最后
