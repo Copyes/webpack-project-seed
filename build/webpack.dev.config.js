@@ -1,21 +1,22 @@
 const path = require('path');
-const { getEntries } = require('./entry.js');
 const fs = require('fs');
+const merge = require('webpack-merge');
+const webpack = require('webpack');
+const baseWebpackConfig = require('./webpack.base.config.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-
-const GLOB_FILE_PATH = './src/pages/**/index.js';
-const CUT_PATH = './src/pages/';
 const PWD = process.env.PWD || process.cwd(); // 兼容windows
 
-var entries = getEntries(GLOB_FILE_PATH, CUT_PATH);
-
-// 初始自带热更新插件
 let plugins = [
-	// new webpack.optimize.OccurenceOrderPlugin(),
- //    new webpack.HotModuleReplacementPlugin(),
- //    new webpack.NoErrorsPlugin()
+	
 ];
+
+let entries = baseWebpackConfig.entry;
+let devClient = './build/dev-client.js'
+// 热更新
+Object.keys(entries).forEach(function (name) {
+    baseWebpackConfig.entry[name] = [devClient].concat(baseWebpackConfig.entry[name])
+});
+console.log(baseWebpackConfig.entry);
 // html打包
 const chunksObject = Object.keys(entries).map(pathname => {
     var templatePath = '!!ejs-full-loader!unit/layout/webpack_layout.html';
@@ -48,80 +49,21 @@ chunksObject.forEach(item => {
     plugins.push(new HtmlWebpackPlugin(conf))
 });
 
-var config = {
-	devtool: '#source-map',
+plugins = plugins.concat([
+	new webpack.DefinePlugin({
+        'process.env': {
+            NODE_ENV: '"development"'
+        }
+    }),
+    //new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+])
+
+console.log(plugins);
+
+module.exports = merge(baseWebpackConfig, {
+  	devtool: '#eval-source-map',
     cache: true,
-	// 入口
-	entry: entries,
-	// 出口
-	output: {
-		path: path.resolve(__dirname, '../dist/static'),
-		publicPath: '/',
-		filename: '[name].[hash].js',
-		chunkFilename: '[id].[chunkhash].js'
-	},
-	// 解析模块
-	module: {
-		rules: [
-			{
-				test: /\.vue$/,
-				exclude: /node_modules/,
-				use: [
-					{
-						loader: 'vue-loader'
-					}
-				]
-			},
-			{
-				test: /\.css$/,
-				exclude: /node_modules/,
-				use: [
-					{
-						loader: 'style-loader'
-					},
-					{
-						loader: 'css-loader'
-					},
-					{
-						loader: 'postcss-loader'
-					}
-				]
-			},
-			{
-				test: /\.less$/,
-				use: [
-					{
-						loader: 'style-loader'
-					},
-					{
-						loader: 'css-loader'
-					},
-					{
-						loader: 'postcss-loader'
-					},
-					{
-						loader: 'less-loader'
-					}
-				]
-			},
-			{
-				test: /\.js$/,
-				exclude: /node_modules/,
-				use: [
-					{
-						loader: 'babel-loader?cacheDirectory'
-					}
-				]
-			}
-		]
-	},
-
-	resolve: {
-        mainFields: ['jsnext:main','main'],
-
-		extensions: ['.js', '.vue', '.less', '.css']
-	},
-	plugins: plugins
-}
-
-module.exports = config;
+    plugins: plugins
+});

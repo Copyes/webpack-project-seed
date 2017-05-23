@@ -7,7 +7,7 @@
 	    export default{
 	    	data(){
 	    		return {
-	    			test: '就是测试下'
+	    			test: '就是测试下sssss'
 	    		}
 	    	}
 	    }

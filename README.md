@@ -28,12 +28,15 @@
 
 开发环境的搭建：
 			
-			-	[x] 1、server.js代码编写
-			-	[x] 2、webpack.dev.config.js配置编写
-			-	[x] 3、entry.js获取多页面的文件路径信息编写
-			-	[x] 4、如果没有对应页面的文件夹下面没有模版(index.html),启用unit/layout/webpack_layout.html
-			-	[x] 5、支持vue
-			-	[x] 6、支持postcss
+-	[x] 1、server.js代码编写
+-	[x] 2、webpack.dev.config.js配置编写
+-	[x] 3、entry.js获取多页面的文件路径信息编写
+-	[x] 4、如果没有对应页面的文件夹下面没有模版(index.html),启用unit/layout/webpack_layout.html
+-	[x] 5、支持vue
+-	[x] 6、支持postcss
+-	[x] 7、支持热更新html,js,less
+-	[ ] 8、线上打包配置
+-	[x] 9、配置拆分base,dev,prod
 
 
 ### 最后
