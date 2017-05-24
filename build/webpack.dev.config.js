@@ -60,8 +60,6 @@ plugins = plugins.concat([
     new webpack.NoEmitOnErrorsPlugin()
 ])
 
-console.log(plugins);
-
 module.exports = merge(baseWebpackConfig, {
   	devtool: '#eval-source-map',
     cache: true,

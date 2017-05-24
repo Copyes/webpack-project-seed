@@ -10,18 +10,18 @@
 构建基础文件目录：
 ```js
 	webpack-project-seed
-						---build     // webpack相关配置文件
-						---dist		 // 编译后的文件目录
-						---src       // 源文件
-							---pages		// 页面
-							---components  //组件
-						---unit      // 存放基本模版，libs库等公共相关
-							---layout
-							---libs
-						.eslintrc
-						.gitignore    
-						packet.json  // 依赖包文件
-						server.js   // node服务启动
+	---build     // webpack相关配置文件
+	---dist		 // 编译后的文件目录
+	---src       // 源文件
+		---pages		// 页面
+		---components  //组件
+	---unit      // 存放基本模版，libs库等公共相关
+		---layout
+		---libs
+	.eslintrc
+	.gitignore    
+	packet.json  // 依赖包文件
+	server.js   // node服务启动
 ```
 
 >2、第二步
@@ -35,8 +35,18 @@
 -	[x] 5、支持vue
 -	[x] 6、支持postcss
 -	[x] 7、支持热更新html,js,less
--	[ ] 8、线上打包配置
--	[x] 9、配置拆分base,dev,prod
+-	[x] 8、配置拆分base,dev,prod
+-	[ ] 9、支持ES6，目前可以使用class特性
+
+>3、第三步
+
+生产环境的搭建：
+
+-	[ ] 1、tree shaking
+-	[ ] 2、抽取公共js，大概4个文件共用的时候
+-	[ ] 3、压缩less，js代码
+-	[ ] 4、增量更新，利用好浏览器缓存
+-	[ ] 5、
 
 
 ### 最后
