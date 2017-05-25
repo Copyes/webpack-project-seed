@@ -4,6 +4,8 @@
   "description": "A seed project built by webpack",
   "main": "index.js",
   "scripts": {
+    "dev": "node ./server.js",
+    "build": "",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
