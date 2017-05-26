@@ -16,7 +16,6 @@ let devClient = './build/dev-client.js'
 Object.keys(entries).forEach(function (name) {
     baseWebpackConfig.entry[name] = [devClient].concat(baseWebpackConfig.entry[name])
 });
-console.log(baseWebpackConfig.entry);
 // html打包
 const chunksObject = Object.keys(entries).map(pathname => {
     var templatePath = '!!ejs-full-loader!unit/layout/webpack_layout.html';

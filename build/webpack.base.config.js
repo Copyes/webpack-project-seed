@@ -1,6 +1,6 @@
 const path = require('path');
 const { getEntries } = require('./entry.js');
-
+const vueLoader = require('./vue-loader.js');
 const GLOB_FILE_PATH = './src/pages/**/index.js';
 const CUT_PATH = './src/pages/';
 
@@ -24,7 +24,8 @@ var config = {
 				exclude: /node_modules/,
 				use: [
 					{
-						loader: 'vue-loader'
+						loader: 'vue-loader',
+						options: vueLoader
 					}
 				]
 			},
@@ -73,7 +74,7 @@ var config = {
 	},
 
 	resolve: {
-        mainFields: ['jsnext:main','main'],
+        //mainFields: ['jsnext:main','main'],
 		extensions: ['.js', '.vue', '.less', '.css']
 	}
 }
