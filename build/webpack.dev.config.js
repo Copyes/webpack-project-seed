@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const baseWebpackConfig = require('./webpack.base.config.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PWD = process.env.PWD || process.cwd(); // 兼容windows
+const config = require('../config/index.js');
 
 let plugins = [
 	
@@ -50,9 +51,7 @@ chunksObject.forEach(item => {
 
 plugins = plugins.concat([
 	new webpack.DefinePlugin({
-        'process.env': {
-            NODE_ENV: '"development"'
-        }
+        'process.env': config.dev.env
     }),
     //new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
@@ -62,5 +61,41 @@ plugins = plugins.concat([
 module.exports = merge(baseWebpackConfig, {
   	devtool: '#eval-source-map',
     cache: true,
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'style-loader'
+                    },
+                    {
+                        loader: 'css-loader'
+                    },
+                    {
+                        loader: 'postcss-loader'
+                    }
+                ]
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    {
+                        loader: 'style-loader'
+                    },
+                    {
+                        loader: 'css-loader'
+                    },
+                    {
+                        loader: 'postcss-loader'
+                    },
+                    {
+                        loader: 'less-loader'
+                    }
+                ]
+            }
+        ]
+    },
     plugins: plugins
 });

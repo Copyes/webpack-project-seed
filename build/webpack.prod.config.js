@@ -4,22 +4,21 @@ const merge = require('webpack-merge');
 const webpack = require('webpack');
 const baseWebpackConfig = require('./webpack.base.config.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const PWD = process.env.PWD || process.cwd(); // 兼容windows
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
+const WebpackMd5Hash = require('webpack-md5-hash');
 
+//const CompressionPlugin = require("compression-webpack-plugin");
+const UglifyJsParallelPlugin = require('webpack-uglify-parallel');
+const os = require('os');
+const PWD = process.env.PWD || process.cwd(); // 兼容windows
 const utils = require('./utils');
-
-const assetsRoot = path.resolve(__dirname, '../dist');
-const assetsSubDirectory = 'static';
-
-var config = {
+const config = require('../config/index.js');
+var buildConfig = merge(baseWebpackConfig, {
     devtool: false,
     bail: true,
-    //入口文件输出配置
-    entry: baseWebpackConfig.entry,
     output: {
-        path: assetsRoot,
+        path: config.build.assetsRoot,
         filename: 'static/js/[name]-[chunkhash:16].js',
         chunkFilename: 'static/js/[id]-[chunkhash:16].js',
         publicPath: '/'
@@ -27,36 +26,40 @@ var config = {
     module: {
         rules: [{
             test: /\.vue$/,
-            loader: 'vue-loader',
-            options: {
-                loaders: {
-                    css: ExtractTextPlugin.extract({
-                        loader: 'css-loader!postcss-loader',
-                        fallbackLoader: 'vue-style-loader'
-                    }),
-                    less: ExtractTextPlugin.extract({
-                        loader: 'css-loader!postcss-loader!less-loader',
-                        fallbackLoader: 'vue-style-loader'
-                    })
+            use: [
+                {
+                    loader: 'vue-loader',
+                    options: {
+                        loaders: {
+                            css: ExtractTextPlugin.extract({
+                                use: 'css-loader!postcss-loader',
+                                fallback: 'vue-style-loader'
+                            }),
+                            less: ExtractTextPlugin.extract({
+                                use: 'css-loader!postcss-loader!less-loader',
+                                fallback: 'vue-style-loader'
+                            })
+                        }
+                    } 
                 }
-            }
+            ]
         }, {
             test: /\.css$/,
-            use: [
-                'vue-style-loader',
-                'css-loader?modules',
-                'postcss-loader'
-            ],
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [
+                    'vue-style-loader',
+                    'css-loader?modules',
+                    'postcss-loader'
+                ]
+        }),
             exclude: /node_modules/
         }, {
-            test: /\.less$/,
-            loader: ExtractTextPlugin.extract(['css-loader?minimize&-autoprefixer!postcss-loader', 'less-loader'])
-        }, {
-            test: /\.xtpl$/,
-            loader: '@beibei/xtpl-loader'
-        }, {
-            test: /\.js$/,
-            loader: 'babel-loader?cacheDirectory'
+            test: /\.less$/,  // ['css-loader?minimize&-autoprefixer!postcss-loader', 'less-loader']
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: ['css-loader?minimize&-autoprefixer!postcss-loader', 'less-loader']
+            })
         }]
     },
     resolve: {
@@ -81,29 +84,33 @@ var config = {
                 console.log('当前进度: ' + parseInt(percentage * 100) + "%", msg)
             }
         }),
+        // 为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID
+        new webpack.optimize.OccurrenceOrderPlugin(),
         //单独使用link标签加载css并设置路径，相对于output配置中的publickPath
         new ExtractTextPlugin({
             filename: 'static/css/[name]-[contenthash:16].css',
             allChunks: true
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            // 最紧凑的输出
-            beautify: false,
-            // 删除所有的注释
-            output: {
-                comments: false, // remove all comments
-            },
-            compress: {
-                warnings: false,
-                drop_console: false, // 不删除console
+        // 压缩js
+        new UglifyJsParallelPlugin({
+            workers: os.cpus().length, // usually having as many workers as cpu cores gives good results
+            uglifyJS: {
+                compress: {
+                    warnings: false,
+                    drop_debugger: true,
+                    drop_console: true
+                },
+                comments: false,
+                mangle: true
             }
         }),
+        // 根据模块打包前的代码内容生成hash，而不是像Webpack那样根据打包后的内容生成hash
+        new WebpackMd5Hash(),
         new webpack.LoaderOptionsPlugin({
             minimize: true
         })
     ]
-};
-
+});
 
 // 全都是为了打包html
 let entries = baseWebpackConfig.entry;
@@ -134,8 +141,6 @@ chunksObject.forEach(item => {
         minify: { //压缩HTML文件
             removeComments: true, //移除HTML中的注释
             collapseWhitespace: true, //删除空白符与换行符
-            // 为了使GAEA能正确识别script, 保留引号
-            // removeAttributeQuotes: true,
             minifyJS: true,
             removeScriptTypeAttributes: true,
             removeStyleLinkTypeAttributes: true
@@ -146,7 +151,10 @@ chunksObject.forEach(item => {
         conf.inject = 'body'
         conf.chunks = [item.pathname]
     }
-    config.plugins.push(new HtmlWebpackPlugin(conf))
+
+
+
+    buildConfig.plugins.push(new HtmlWebpackPlugin(conf))
 });
 
-module.exports = config;
+module.exports = buildConfig;
