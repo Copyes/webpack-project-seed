@@ -35,6 +35,7 @@ compiler.plugin('compilation', function(compilation){
 // 注册中间件
 app.use(devMiddleware);
 app.use(hotMiddleware)
+app.use(express.static(__dirname));
 
 
 app.listen(8888, function(err){

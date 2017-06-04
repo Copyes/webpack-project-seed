@@ -62,16 +62,6 @@ var buildConfig = merge(baseWebpackConfig, {
             })
         }]
     },
-    resolve: {
-        // 支持ES2015 import
-        mainFields: ['jsnext:main', 'main'],
-        extensions: ['.js'] // todo:
-    },
-    externals: {
-        $: "$",
-        Zepto: "Zepto",
-        Vue: "Vue"
-    },
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {

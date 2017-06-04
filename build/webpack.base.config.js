@@ -13,8 +13,8 @@ var config = {
 	output: {
 		path: path.resolve(__dirname, '../dist/static'),
 		publicPath: '/',
-		filename: '[name].[hash].js',
-		chunkFilename: '[id].[chunkhash].js'
+		filename: 'static/js/[name].[hash].js',
+		chunkFilename: 'static/js/[id].[chunkhash].js'
 	},
 	// 解析模块
 	module: {
@@ -30,11 +30,18 @@ var config = {
 			}
 		]
 	},
-
 	resolve: {
-        //mainFields: ['jsnext:main','main'],
+        mainFields: ['jsnext:main','main'],
+        alias: {
+            unit: path.resolve('./unit'),
+            src: path.resolve('./src')
+        },
 		extensions: ['.js', '.vue', '.less', '.css']
-	}
+	},
+	externals: {
+        $: "$",
+        'window.$': "$"
+    }
 }
 
 module.exports = config;

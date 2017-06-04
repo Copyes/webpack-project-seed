@@ -7,25 +7,61 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PWD = process.env.PWD || process.cwd(); // 兼容windows
 const config = require('../config/index.js');
 
-let plugins = [
-	
-];
-
 let entries = baseWebpackConfig.entry;
 let devClient = './build/dev-client.js'
-// 热更新
-Object.keys(entries).forEach(function (name) {
+    // 热更新
+Object.keys(entries).forEach(function(name) {
     baseWebpackConfig.entry[name] = [devClient].concat(baseWebpackConfig.entry[name])
 });
+
+let devConfig = merge(baseWebpackConfig, {
+    devtool: '#eval-source-map',
+    cache: true,
+    module: {
+        rules: [{
+            test: /\.vue$/,
+            loader: 'vue-loader',
+            options: {
+                postcss: [require('autoprefixer')({
+                    browsers: ['android >= 4.0', 'ios_saf >= 7.0'],
+                    remove: false
+                })]
+            }
+        }, {
+            test: /\.css$/,
+            exclude: /node_modules/,
+            use: [{
+                loader: 'style-loader'
+            }, {
+                loader: 'css-loader'
+            }, {
+                loader: 'postcss-loader'
+            }]
+        }, {
+            test: /\.less$/,
+            use: [{
+                loader: 'style-loader'
+            }, {
+                loader: 'css-loader'
+            }, {
+                loader: 'postcss-loader'
+            }, {
+                loader: 'less-loader'
+            }]
+        }]
+    },
+    plugins: []
+});
+
 // html打包
 const chunksObject = Object.keys(entries).map(pathname => {
     var templatePath = '!!ejs-full-loader!unit/layout/webpack_layout.html';
-    try{
+    try {
         let stat = fs.statSync(path.join(PWD, 'src/pages', pathname) + '/index.html');
-        if(stat && stat.isFile()){
+        if (stat && stat.isFile()) {
             templatePath = `!!ejs-full-loader!src/pages/${pathname}/index.html`
         }
-    }catch(e){
+    } catch (e) {
         if (e.code !== 'ENOENT') {
             throw e
         }
@@ -38,64 +74,31 @@ const chunksObject = Object.keys(entries).map(pathname => {
 
 chunksObject.forEach(item => {
     let conf = {
-        filename: './' + item.pathname + '.html',  // 生成的html存放路径，相对于publicPath
+        filename: './' + item.pathname + '.html', // 生成的html存放路径，相对于publicPath
         template: item.templatePath, // html模板路径,
-        inject: false   //js插入的位置，true/'head'/'body'/false
+        inject: false //js插入的位置，true/'head'/'body'/false
     }
     if (item.pathname in entries) {
         conf.inject = 'body'
         conf.chunks = [item.pathname]
     }
-    plugins.push(new HtmlWebpackPlugin(conf))
+    devConfig.plugins.push(new HtmlWebpackPlugin(conf))
 });
 
-plugins = plugins.concat([
-	new webpack.DefinePlugin({
+devConfig.plugins = devConfig.plugins.concat([
+    new webpack.DefinePlugin({
         'process.env': config.dev.env
     }),
-    //new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    // /* 全局shimming */
+    // new webpack.ProvidePlugin({
+    //     $: 'zepto',
+    //     Zepto: 'zepto',
+    //     'window.$': 'zepto',
+    //     'window.Zepto': 'zepto',
+    // }),
 ])
 
-module.exports = merge(baseWebpackConfig, {
-  	devtool: '#eval-source-map',
-    cache: true,
-    module: {
-        rules: [
-            {
-                test: /\.css$/,
-                exclude: /node_modules/,
-                use: [
-                    {
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: 'css-loader'
-                    },
-                    {
-                        loader: 'postcss-loader'
-                    }
-                ]
-            },
-            {
-                test: /\.less$/,
-                use: [
-                    {
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: 'css-loader'
-                    },
-                    {
-                        loader: 'postcss-loader'
-                    },
-                    {
-                        loader: 'less-loader'
-                    }
-                ]
-            }
-        ]
-    },
-    plugins: plugins
-});
+module.exports = devConfig;
