@@ -123,20 +123,39 @@
 // var bar = func.bind(obj,1);
 
 // bar(); // 2 , {'0':1}
-var bar = function() {
-    console.log(this.x);
-}
-var foo = {
-    x: 3
-}
-var sed = {
-    x: 4
-}
-var func = bar.bind(foo).bind(sed);
-func(); //3
+// var bar = function() {
+//     console.log(this.x);
+// }
+// var foo = {
+//     x: 3
+// }
+// var sed = {
+//     x: 4
+// }
+// var func = bar.bind(foo).bind(sed);
+// func(); //3
 
-var fiv = {
-    x: 5
+// var fiv = {
+//     x: 5
+// }
+// var func = bar.bind(foo).bind(sed).bind(fiv);
+// func(); //3
+// 
+// 展开数据 [1,2,[2,3,[4,5]]]--->[1,2,2,3,4,5]
+function flatArr(arr){
+	function isArray(arr){
+		return Object.prototype.toString.call(arr).slice(8, -1).toLowerCase() === 'array';
+	}
+
+	if(!isArray(arr) || !arr.length){
+		return [];
+	}else{
+		return Array.prototype.concat.apply([], arr.map(function(val){
+			return isArray(val) ? flatArr(val) : val;
+		}));
+	}
 }
-var func = bar.bind(foo).bind(sed).bind(fiv);
-func(); //3
+
+
+
+

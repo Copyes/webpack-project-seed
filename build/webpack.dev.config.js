@@ -1,3 +1,6 @@
+/**
+ * lip.fan
+ */
 const path = require('path');
 const fs = require('fs');
 const merge = require('webpack-merge');
@@ -9,13 +12,13 @@ const config = require('../config/index.js');
 
 let entries = baseWebpackConfig.entry;
 let devClient = './build/dev-client.js'
-    // 热更新
-Object.keys(entries).forEach(function(name) {
+// 热更新
+Object.keys(entries).forEach(function (name) {
     baseWebpackConfig.entry[name] = [devClient].concat(baseWebpackConfig.entry[name])
 });
 
 let devConfig = merge(baseWebpackConfig, {
-    devtool: '#eval-source-map',
+    devtool: '#cheap-module-eval-source-map',
     cache: true,
     module: {
         rules: [{
