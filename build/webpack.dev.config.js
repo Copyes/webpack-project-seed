@@ -7,6 +7,8 @@ const merge = require('webpack-merge');
 const webpack = require('webpack');
 const baseWebpackConfig = require('./webpack.base.config.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const vConsolePlugin = require('vconsole-webpack-plugin');
+
 const PWD = process.env.PWD || process.cwd(); // 兼容windows
 const config = require('../config/index.js');
 
@@ -92,9 +94,12 @@ devConfig.plugins = devConfig.plugins.concat([
     new webpack.DefinePlugin({
         'process.env': config.dev.env
     }),
-    new webpack.optimize.OccurrenceOrderPlugin(),
+    //new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new vConsolePlugin({
+            enable: true
+        })
     // /* 全局shimming */
     // new webpack.ProvidePlugin({
     //     $: 'zepto',

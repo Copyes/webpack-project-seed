@@ -4150,6 +4150,16 @@ vary@~1.1.0, vary@~1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.1.tgz#67535ebb694c1d52257457984665323f587e8d37"
 
+vconsole-webpack-plugin@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/vconsole-webpack-plugin/-/vconsole-webpack-plugin-1.1.2.tgz#7ed597bb467893c80a4f51835d90d4e2d8e5a7ef"
+  dependencies:
+    vconsole "^2.5.1"
+
+vconsole@^2.5.1:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/vconsole/-/vconsole-2.5.2.tgz#07092d9a459552d89604553cef512308553848df"
+
 vendors@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/vendors/-/vendors-1.0.1.tgz#37ad73c8ee417fb3d580e785312307d274847f22"
@@ -4431,7 +4441,3 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
-
-zepto@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/zepto/-/zepto-1.2.0.tgz#e127bd9e66fd846be5eab48c1394882f7c0e4f98"
