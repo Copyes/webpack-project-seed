@@ -32,12 +32,18 @@ var config = {
 	},
 	resolve: {
         mainFields: ['jsnext:main','main'],
+        // 起个别名
         alias: {
-            unit: path.resolve('./unit'),
-            src: path.resolve('./src')
+            unit: path.resolve(__dirname, 'unit/libs'),
+            src: path.resolve(__dirname, 'src')
         },
-		extensions: ['.js', '.vue', '.less', '.css']
+        //modules:  ["node_modules"]//path.resolve(__dirname, 'node_modules'),
+        // 自动解析文件后缀名
+		extensions: ['.js', '.vue', '.less']
 	},
+	performance: {
+	  	hints: "warning"
+	}
 	// externals: {
     //     $: "$",
     //     'window.$': "$"

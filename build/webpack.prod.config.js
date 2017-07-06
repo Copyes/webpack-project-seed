@@ -19,6 +19,7 @@ const config = require('../config/index.js');
 var buildConfig = merge(baseWebpackConfig, {
     devtool: false,
     bail: true,
+    cache: true,
     output: {
         path: config.build.assetsRoot,
         filename: 'static/js/[name]-[chunkhash:16].js',
@@ -26,6 +27,7 @@ var buildConfig = merge(baseWebpackConfig, {
         publicPath: '/'
     },
     module: {
+        noParse: /node_modules\/(jquey\.js)/,
         rules: [{
             test: /\.vue$/,
             use: [{
@@ -96,17 +98,26 @@ var buildConfig = merge(baseWebpackConfig, {
                 mangle: true
             }
         }),
+        // new webpack.optimize.CommonsChunkPlugin({ 
+        //     name: ['manifast'] 
+        // }),
         // 根据模块打包前的代码内容生成hash，而不是像Webpack那样根据打包后的内容生成hash
         //new WebpackMd5Hash(),
         // 提取公共模块
         new webpack.optimize.CommonsChunkPlugin({
             name: 'commons', // 这公共代码的chunk名为'commons'
-            filename: 'assets/static/js/[name].bundle.js', // 生成后的文件名，虽说用了[name]，但实际上就是'commons.bundle.js'了
+            filename: 'assets/static/js/[name].[chunkhash:16].bundle.js', // 生成后的文件名，虽说用了[name]，但实际上就是'commons.bundle.js'了
             minChunks: 4, // 设定要有4个chunk（即4个页面）加载的js模块才会被纳入公共代码。这数目自己考虑吧，我认为3-5比较合适。
-        })
+        }),
         // new webpack.LoaderOptionsPlugin({
         //     minimize: true
         // })
+        // 
+        new webpack.DllReferencePlugin({
+            context:  __dirname,
+            name: 'dll',
+            manifest: require('../dist/assets/vendor-manifest.json')
+        })
     ]
 });
 
@@ -147,7 +158,7 @@ chunksObject.forEach(item => {
     }
     if (item.pathname in entries) {
         conf.inject = 'body'
-        conf.chunks = ['commons', item.pathname]
+        conf.chunks = ['dll','commons', item.pathname]
     }
 
 

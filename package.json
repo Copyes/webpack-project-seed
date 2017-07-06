@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "node ./server.js",
     "build": "node ./build/build.js",
+    "dll": "",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -62,6 +63,8 @@
     "webpack-uglify-parallel": "^0.1.3"
   },
   "devDependencies": {
-    "vconsole-webpack-plugin": "^1.1.2"
+    "bluebird": "^3.5.0",
+    "vconsole-webpack-plugin": "^1.1.2",
+    "xtemplate": "^4.7.2"
   }
 }
