@@ -60,7 +60,8 @@ let devConfig = merge(baseWebpackConfig, {
 
 // html打包
 const chunksObject = Object.keys(entries).map(pathname => {
-    var templatePath = '!!ejs-full-loader!unit/layout/webpack_layout.html';
+    // 当前文件路径下面没有index.html的时候就使用layout中的index.html 
+    var templatePath = '!!ejs-full-loader!src/units/layout/index.html';
     try {
         let stat = fs.statSync(path.join(PWD, 'src/pages', pathname) + '/index.html');
         if (stat && stat.isFile()) {
@@ -98,8 +99,8 @@ devConfig.plugins = devConfig.plugins.concat([
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new vConsolePlugin({
-            enable: true
-        })
+        enable: true
+    })
     // /* 全局shimming */
     // new webpack.ProvidePlugin({
     //     $: 'zepto',
