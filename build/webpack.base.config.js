@@ -22,6 +22,18 @@ var config = {
 	module: {
 		rules: [
 			{
+		        test: /\.(js)$/,
+		        use: [{
+		        	loader: 'eslint-loader',
+		        	options: {
+			          	formatter: require('eslint-friendly-formatter')
+			        }
+		        }],
+		        enforce: 'pre',
+				exclude: /node_modules/,
+		        include: path.join(__dirname, '../src'),
+	      	},
+			{
 				test: /\.js$/,
 				use: [
 					{

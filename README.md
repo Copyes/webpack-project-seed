@@ -31,14 +31,14 @@
 -	[x] 1、server.js代码编写
 -	[x] 2、webpack.dev.config.js配置编写
 -	[x] 3、entry.js获取多页面的文件路径信息编写
--	[x] 4、如果没有对应页面的文件夹下面没有模版(index.html),启用unit/layout/webpack_layout.html
+-	[x] 4、如果没有对应页面的文件夹下面没有模版(index.html),启用unit/layout/index.html
 -	[x] 5、支持vue
 -	[x] 6、支持postcss
 -	[x] 7、支持热更新html,js,less
 -	[x] 8、配置拆分base,dev,prod
 -	[x] 9、支持ES6，目前可以使用class特性
 -	[x] 10、支持ejs模版
--	[ ] 11、支持ESlint
+-	[x] 11、支持ESlint
 -	[x] 12、支持zepto有点问题，待优化
 -	[x] 13、支持rem布局
 -	[x] 14、支持vconsole，移动端调试
@@ -46,6 +46,7 @@
 -	[x] 16、大文件优化提醒
 -	[x] 17、支持xtemplate
 -	[x] 18、支持组件化开发
+
  
 >3、第三步
 
@@ -64,9 +65,13 @@
 -	[x] 11、支持zepto
 -	[x] 12、支持rem布局
 -	[x] 13、初始化样式
--	[x] 14、如果没有对应页面的文件夹下面没有模版(index.html),启用unit/layout/webpack_layout.html
+-	[x] 14、如果没有对应页面的文件夹下面没有模版(index.html),启用unit/layout/index.html
 -	[x] 15、支持xtemplate
 -	[x] 16、支持组件化开发
+-	[x] 17、支持预编译
+-	[x] 18、支持ESlint
+
+
 
 
 ### 最后

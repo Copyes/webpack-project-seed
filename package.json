@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node ./server.js",
     "build": "node ./build/build.js",
-    "dll": "",
+    "dll": "webpack --progress --colors --config build/webpack.dll.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,8 +26,10 @@
   },
   "homepage": "https://github.com/Copyes/webpack-project-seed#readme",
   "dependencies": {
+    "add-asset-html-webpack-plugin": "^2.0.1",
     "autoprefixer": "^7.1.1",
     "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -39,6 +41,13 @@
     "compression-webpack-plugin": "^0.4.0",
     "css-loader": "^0.28.1",
     "ejs-full-loader": "^1.1.0",
+    "eslint": "^4.4.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-html": "^3.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
     "express": "^4.15.3",
     "extract-text-webpack-plugin": "^2.1.0",
     "glob": "^7.1.2",
@@ -54,7 +63,7 @@
     "vue-loader": "^12.1.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.3.3",
-    "webpack": "^2.5.1",
+    "webpack": "^3.4.1",
     "webpack-dev-middleware": "^1.10.2",
     "webpack-dev-server": "^2.4.5",
     "webpack-hot-middleware": "^2.18.0",

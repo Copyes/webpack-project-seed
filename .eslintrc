@@ -1,0 +1,42 @@
+{
+    "root": true,
+    "parser": "babel-eslint",
+    "extends": "eslint:recommended",
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "jquery": true
+    },
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "rules": {
+        "max-len": [
+            2,
+            120,
+            4
+        ],
+        "indent": [
+            "error",
+            4
+        ],
+        "comma-dangle": [
+            2,
+            "never"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        // "semi": [
+        //     "error",
+        //     "always"
+        // ],
+        "no-use-before-define": 0,
+        "no-param-reassign": 0,
+        "consistent-return": 0,
+        "no-console": 2,
+        "no-cond-assign": 0
+    }
+}

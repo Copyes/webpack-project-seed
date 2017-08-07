@@ -4,14 +4,13 @@
 	</div>
 </template>
 <script>
-	    export default{
-	    	data(){
-	    		return {
-	    			test: '就是测试下sssss'
-	    		}
-	    	}
-	    }
-
+    export default{
+    	data(){
+    		return {
+    			test: '就是测试下sssss'
+    		}
+    	}
+    }
 </script>
 <style lang="less">
 	.test {
