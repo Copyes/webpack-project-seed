@@ -13,10 +13,10 @@ const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const WebpackMd5Hash = require('webpack-md5-hash')
 const UglifyJsParallelPlugin = require('webpack-uglify-parallel')
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
-
-const PWD = process.env.PWD || process.cwd() // 兼容windows
 const utils = require('./utils')
 const config = require('../config/index.js')
+
+const PWD = process.env.PWD || process.cwd() // 兼容windows
 
 var buildConfig = merge(baseWebpackConfig, {
     devtool: false,
@@ -76,6 +76,7 @@ var buildConfig = merge(baseWebpackConfig, {
                 NODE_ENV: config.build.env
             }
         }),
+        // 打包进度展示
         new webpack.ProgressPlugin(function handler(percentage, msg) {
             var _perInt = parseInt(percentage * 100)
             if (_perInt % 10 === 0) {
@@ -93,7 +94,7 @@ var buildConfig = merge(baseWebpackConfig, {
         }),
         // 压缩js
         new UglifyJsParallelPlugin({
-            workers: os.cpus().length, // usually having as many workers as cpu cores gives good results
+            workers: os.cpus().length,
             uglifyJS: {
                 compress: {
                     warnings: false,
@@ -138,7 +139,7 @@ var buildConfig = merge(baseWebpackConfig, {
 });
 
 // 全都是为了打包html
-let entries = baseWebpackConfig.entry;
+let entries = baseWebpackConfig.entry
 
 const chunksObject = Object.keys(entries).map(pathname => {
     var templatePath = '!!ejs-full-loader!src/units/layout/index.html';

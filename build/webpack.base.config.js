@@ -1,12 +1,9 @@
-const path = require('path');
-const { getEntries } = require('./entry.js');
-const GLOB_FILE_PATH = './src/pages/**/index.js';
-const CUT_PATH = './src/pages/';
-const vueLoader = require('./vue-loader.js');
+const path = require('path')
+const vueLoader = require('./vue-loader.js')
+const { getEntries } = require('./entry.js')
 
-var entries = getEntries(GLOB_FILE_PATH, CUT_PATH);
-
-console.log(path.resolve(__dirname, '../src/'))
+const ARGVS = process.env.npm_config_argv
+const entries = getEntries(ARGVS)
 
 var config = {
 	// 入口

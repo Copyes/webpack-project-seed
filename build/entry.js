@@ -4,15 +4,36 @@
  * @param  {[type]} cutPath    要去掉的部分
  * @return {[type]}            所有的文件路径
  */
-const glob = require('glob');
-const path = require('path');
+const glob = require('glob')
+const path = require('path')
 
-exports.getEntries = function(globalPath, cutPath = ''){
-	let  paths = glob.sync(globalPath);
-	let  entries = {};
-	for(let i = 0; i < paths.length; i++){
-		let pathName = path.dirname(paths[i]).replace(new RegExp('^' + cutPath), '');
-		entries[pathName] = paths[i];
+const GLOB_FILE_PATH = './src/pages/**/index.js'
+const CUT_PATH = './src/pages/'
+
+exports.getEntries = function(argv){
+	let  paths = glob.sync(GLOB_FILE_PATH)
+	let  entries = {}
+	// 使用方法 npm run dev -- --keyword1,keyword2
+	var argv, keywords
+	try {
+		argv = JSON.parse(argv).remain
+		keywords = (argv.length ? argv[0].slice(2) : '').split(',')
+	}catch(e){
+		keywords = []
 	}
-	return entries;
+	paths = paths.filter((value)=>{
+		console.log(value)
+		for(let i = 0; i < keywords.length; i++){
+			if(value.indexOf(keywords[i]) != -1){
+				return true
+			}
+		}
+		return false
+	})
+
+	for(let i = 0; i < paths.length; i++){
+		let pathName = path.dirname(paths[i]).replace(new RegExp('^' + CUT_PATH), '')
+		entries[pathName] = paths[i]
+	}
+	return entries
 }
