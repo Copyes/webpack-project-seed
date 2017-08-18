@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node ./server.js",
-    "build": "node ./build/build.js",
+    "build": "npm run dll && node ./build/build.js",
     "dll": "webpack --progress --colors --config build/webpack.dll.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -73,7 +73,7 @@
     "xtpl-loader": "^0.1.0"
   },
   "devDependencies": {
-    "bluebird": "^3.5.0",
+    "es6-promise": "^4.1.1",
     "vconsole-webpack-plugin": "^1.1.2",
     "xtemplate": "^4.7.2"
   }

@@ -1,12 +1,11 @@
-var express = require('express');
-var webpack = require('webpack');
+var express = require('express')
+var webpack = require('webpack')
 
-var webpackDevConfig = require('./build/webpack.dev.config.js');
-var config = '';
+var webpackDevConfig = require('./build/webpack.dev.config.js')
 
-var app = express();
+var app = express()
 // webpack 编译下。
-var compiler = webpack(webpackDevConfig);
+var compiler = webpack(webpackDevConfig)
 // 使用 webpack-dev-middleware 中间件
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
 	publicPath: webpackDevConfig.output.publicPath,

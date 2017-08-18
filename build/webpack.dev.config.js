@@ -1,23 +1,21 @@
 /**
  * lip.fan
  */
-const path = require('path');
-const fs = require('fs');
-const merge = require('webpack-merge');
-const webpack = require('webpack');
-const baseWebpackConfig = require('./webpack.base.config.js');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const vConsolePlugin = require('vconsole-webpack-plugin');
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const vConsolePlugin = require('vconsole-webpack-plugin')
 
-const PWD = process.env.PWD || process.cwd(); // 兼容windows
-const config = require('../config/index.js');
+const baseWebpackConfig = require('./webpack.base.config.js')
+const config = require('../config/index.js')
+const { getChunksObject } = require('./chunks.js')
 
 let entries = baseWebpackConfig.entry;
 let devClient = './build/dev-client.js'
 // 热更新
 Object.keys(entries).forEach(function (name) {
     baseWebpackConfig.entry[name] = [devClient].concat(baseWebpackConfig.entry[name])
-});
+})
 
 let devConfig = merge(baseWebpackConfig, {
     devtool: '#cheap-module-eval-source-map',
@@ -56,27 +54,8 @@ let devConfig = merge(baseWebpackConfig, {
         }]
     },
     plugins: []
-});
-
-// html打包
-const chunksObject = Object.keys(entries).map(pathname => {
-    // 当前文件路径下面没有index.html的时候就使用layout中的index.html 
-    var templatePath = '!!ejs-full-loader!src/units/layout/index.html';
-    try {
-        let stat = fs.statSync(path.join(PWD, 'src/pages', pathname) + '/index.html');
-        if (stat && stat.isFile()) {
-            templatePath = `!!ejs-full-loader!src/pages/${pathname}/index.html`
-        }
-    } catch (e) {
-        if (e.code !== 'ENOENT') {
-            throw e
-        }
-    }
-    return {
-        pathname,
-        templatePath
-    }
 })
+let chunksObject = getChunksObject(entries)
 
 chunksObject.forEach(item => {
     let conf = {
@@ -89,7 +68,7 @@ chunksObject.forEach(item => {
         conf.chunks = [item.pathname]
     }
     devConfig.plugins.push(new HtmlWebpackPlugin(conf))
-});
+})
 
 devConfig.plugins = devConfig.plugins.concat([
     new webpack.DefinePlugin({
@@ -110,4 +89,4 @@ devConfig.plugins = devConfig.plugins.concat([
     // }),
 ])
 
-module.exports = devConfig;
+module.exports = devConfig

@@ -61,9 +61,9 @@ var config = {
         //modules:  ["node_modules"]//path.resolve(__dirname, 'node_modules'),
         // 自动解析文件后缀名
 	},
-	performance: {
-	  	hints: "warning"
-	}
+	// performance: {
+	//   	hints: "warning"
+	// }
 	// externals: {
     //     $: "$",
     //     'window.$': "$"

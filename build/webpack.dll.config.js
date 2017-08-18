@@ -15,7 +15,7 @@ module.exports = {
 	entry: {
 		vendor: [
 			'xtemplate',
-			'bluebird'
+			'es6-promise'
 		]
 	},
 	plugins: [

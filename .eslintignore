@@ -1,2 +1,4 @@
 # 不用加入eslint的目录
 dist/*
+node_modules/
+config/

@@ -4,7 +4,7 @@ import test from 'components/test-component/test.xtpl'
 import 'components/test-component/test'
 //import cube from '@libs/test';
 import cube from 'libs/test'
-import Promise from 'bluebird'
+import Promise from 'es6-promise'
 
 alert(cube)
 let aa = 1

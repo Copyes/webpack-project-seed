@@ -1,8 +1,6 @@
 /**
  * lip.fan
  */
-const path = require('path')
-const fs = require('fs')
 const os = require('os')
 const merge = require('webpack-merge')
 const webpack = require('webpack')
@@ -13,17 +11,17 @@ const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const WebpackMd5Hash = require('webpack-md5-hash')
 const UglifyJsParallelPlugin = require('webpack-uglify-parallel')
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
+
 const utils = require('./utils')
 const config = require('../config/index.js')
-
-const PWD = process.env.PWD || process.cwd() // 兼容windows
+const { getChunksObject } = require('./chunks.js')
 
 var buildConfig = merge(baseWebpackConfig, {
     devtool: false,
     bail: true,
     cache: true,
     output: {
-        path: config.build.assetsRoot,
+        path: config.prod.assetsRoot,
         filename: 'static/js/[name]-[chunkhash:16].js',
         chunkFilename: 'static/js/[id]-[chunkhash:16].js',
         publicPath: '/'
@@ -73,7 +71,7 @@ var buildConfig = merge(baseWebpackConfig, {
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: config.build.env
+                NODE_ENV: config.prod.env
             }
         }),
         // 打包进度展示
@@ -136,28 +134,12 @@ var buildConfig = merge(baseWebpackConfig, {
             }
         ])
     ]
-});
+})
 
 // 全都是为了打包html
-let entries = baseWebpackConfig.entry
 
-const chunksObject = Object.keys(entries).map(pathname => {
-    var templatePath = '!!ejs-full-loader!src/units/layout/index.html';
-    try {
-        let stat = fs.statSync(path.join(PWD, 'src/pages', pathname) + '/index.html');
-        if (stat && stat.isFile()) {
-            templatePath = `!!ejs-full-loader!src/pages/${pathname}/index.html`
-        }
-    } catch (e) {
-        if (e.code !== 'ENOENT') {
-            throw e
-        }
-    }
-    return {
-        pathname,
-        templatePath
-    }
-})
+let entries = baseWebpackConfig.entry
+let chunksObject = getChunksObject(entries)
 
 chunksObject.forEach(item => {
     let conf = {
@@ -179,6 +161,6 @@ chunksObject.forEach(item => {
     }
 
     buildConfig.plugins.push(new HtmlWebpackPlugin(conf))
-});
+})
 
-module.exports = buildConfig;
+module.exports = buildConfig

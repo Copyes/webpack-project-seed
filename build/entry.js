@@ -13,7 +13,7 @@ const CUT_PATH = './src/pages/'
 exports.getEntries = function(argv){
 	let  paths = glob.sync(GLOB_FILE_PATH)
 	let  entries = {}
-	// 使用方法 npm run dev -- --keyword1,keyword2
+	// 使用方法 npm run dev -- --keyword1,keyword2  支持单文件编译
 	var argv, keywords
 	try {
 		argv = JSON.parse(argv).remain
@@ -22,7 +22,6 @@ exports.getEntries = function(argv){
 		keywords = []
 	}
 	paths = paths.filter((value)=>{
-		console.log(value)
 		for(let i = 0; i < keywords.length; i++){
 			if(value.indexOf(keywords[i]) != -1){
 				return true

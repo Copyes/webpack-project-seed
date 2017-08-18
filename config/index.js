@@ -5,10 +5,10 @@ module.exports = {
 		env: require('./dev-env.js'),
 		assetsRoot: path.resolve(__dirname, '../dist'),
 		assetsSubDirectory: 'static',
-	    cssSourceMap: false
+	    cssSourceMap: true
 	},
 
-	build: {
+	prod: {
 		env: require('./prod-env.js'),
 		assetsRoot: path.resolve(__dirname, '../dist'),
 		assetsSubDirectory: 'static',
