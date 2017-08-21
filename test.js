@@ -1,4 +1,4 @@
-// 改变上下文的操作
+/ 改变上下文的操作....
 // function Person(name){
 // 	this.name = name;
 // 	this.speak = function(){
