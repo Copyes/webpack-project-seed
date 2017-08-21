@@ -8,11 +8,10 @@ const baseWebpackConfig = require('./webpack.base.config.js')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-const WebpackMd5Hash = require('webpack-md5-hash')
+// const WebpackMd5Hash = require('webpack-md5-hash')
 const UglifyJsParallelPlugin = require('webpack-uglify-parallel')
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 
-const utils = require('./utils')
 const config = require('../config/index.js')
 const { getChunksObject } = require('./chunks.js')
 
@@ -75,12 +74,12 @@ var buildConfig = merge(baseWebpackConfig, {
             }
         }),
         // 打包进度展示
-        new webpack.ProgressPlugin(function handler(percentage, msg) {
-            var _perInt = parseInt(percentage * 100)
-            if (_perInt % 10 === 0) {
-                console.log('当前进度: ' + parseInt(percentage * 100) + "%", msg)
-            }
-        }),
+        // new webpack.ProgressPlugin(function handler(percentage, msg) {
+        //     var _perInt = parseInt(percentage * 100)
+        //     if (_perInt % 10 === 0) {
+        //         console.log('当前进度: ' + parseInt(percentage * 100) + '%', msg)
+        //     }
+        // }),
         // 通过范围提升，webpack可以根据你正在使用什么样的模块和一些其他条件来回退到正常的捆绑
         new webpack.optimize.ModuleConcatenationPlugin(),
         // 为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID
@@ -115,7 +114,7 @@ var buildConfig = merge(baseWebpackConfig, {
         new webpack.optimize.CommonsChunkPlugin({
             name: 'commons', // 这公共代码的chunk名为'commons'
             filename: 'assets/static/js/[name].[chunkhash:16].bundle.js', // 生成后的文件名，虽说用了[name]，但实际上就是'commons.bundle.js'了
-            minChunks: 4, // 设定要有4个chunk（即4个页面）加载的js模块才会被纳入公共代码。这数目自己考虑吧，我认为3-5比较合适。
+            minChunks: 4 // 设定要有4个chunk（即4个页面）加载的js模块才会被纳入公共代码。这数目自己考虑吧，我认为3-5比较合适。
         }),
         // 预编译
         new webpack.DllReferencePlugin({
@@ -135,7 +134,6 @@ var buildConfig = merge(baseWebpackConfig, {
         ])
     ]
 })
-
 // 全都是为了打包html
 
 let entries = baseWebpackConfig.entry
