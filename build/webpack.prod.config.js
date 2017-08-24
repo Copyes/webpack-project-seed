@@ -126,8 +126,8 @@ var buildConfig = merge(baseWebpackConfig, {
         new AddAssetHtmlPlugin([
             {
                 filepath: 'dist/assets/dll/vendor.dll.js',
-                publicPath: '../assets/dll/',
-                outputPath: '../assets/dll',
+                publicPath: '/assets/dll/',
+                outputPath: '/assets/dll',
                 // files: config.libraryEntry.map(entry => entry + '.html'),
                 includeSourcemap: false
             }

@@ -6,7 +6,8 @@
         "browser": true,
         "commonjs": true,
         "es6": true,
-        "jquery": true
+        "jquery": true,
+        "node": true
     },
     "parserOptions": {
         "sourceType": "module"
@@ -27,7 +28,8 @@
         ],
         "quotes": [
             "error",
-            "single"
+            "single",
+            { "allowTemplateLiterals": true }
         ],
         // "semi": [
         //     "error",
@@ -36,7 +38,7 @@
         "no-use-before-define": 0,
         "no-param-reassign": 0,
         "consistent-return": 0,
-        "no-console": 2,
+        "no-console": 0,  //不允许使用console中的所有方法
         "no-co nd-assign": 0
     }
 }

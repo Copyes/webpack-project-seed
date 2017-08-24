@@ -5,7 +5,6 @@ import 'components/test-component/test'
 //import cube from '@libs/test';
 import cube from 'libs/test'
 import Promise from 'es6-promise'
-
 alert(cube)
 let aa = 1
 new Promise((resolve, reject) => {

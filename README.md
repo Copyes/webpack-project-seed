@@ -2,6 +2,29 @@
 
 闲得蛋疼，然后自己搭建一个基于纯webpack的项目。
 
+### 注意
+
+本项目的git commit 描述为下:
+commmit message 必须带动词前缀以表示该次提交主要操作是什么操作，操作后面跟上具体信息即可。
+
+提供的操作动词有：
+```js
+[update] [optimize] [add] [build] [delete] [edit]
+eg: [add] new files added and 
+```
+### 工具
+
+因为该项目构建统一所以增加一个脚本用于自动生成页面模版
+
+```js
+npm run newpage your-page-name
+```
+如果你想创建的是已经存在的文件夹下面的页面
+
+```js
+npm run newpage exist/your-page-name
+```
+
 ### 正文
 
 >1、起手式
@@ -50,6 +73,7 @@
 -	[x] 17、支持xtemplate
 -	[x] 18、支持组件化开发
 -	[x] 19、支持单文件编译开发
+-	[x] 20、支持命令生成模版文件
 
  
 >3、第三步
@@ -74,6 +98,7 @@
 -	[x] 16、支持组件化开发
 -	[x] 17、支持预编译
 -	[x] 18、支持ESlint
+-	[x] 19、支持git hook提交代码之前跑eslint
 
 
 ### 最后
