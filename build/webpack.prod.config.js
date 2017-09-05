@@ -102,10 +102,12 @@ var buildConfig = merge(baseWebpackConfig, {
                 mangle: true
             }
         }),
-        // 压缩css
+        // 压缩css 是  去重css， 去掉注释
         new OptimizeCSSPlugin({
             cssProcessorOptions: {
-                safe: true
+                safe: false,
+                autoprefixer: false,
+                discardComments:{removeAll: true}
             }
         }),
         // 根据模块打包前的代码内容生成hash，而不是像Webpack那样根据打包后的内容生成hash

@@ -29,26 +29,7 @@ npm run newpage exist/your-page-name
 
 >1、起手式
 
-装各种基础包：webpack等基础包，
-构建基础文件目录：
-```js
-	webpack-project-seed
-	---assets	 			// 静态文件	
-	---build     			// webpack相关配置文件
-	---config				// 相关配置文件
-	---dist		 			// 编译后的文件目录
-	---src       			// 源文件
-		---pages			// 页面
-		---components       //组件
-		---units     		// 存放基本模版，libs库等公共相关
-			---layout
-			---libs
-			---commons
-	.eslintrc
-	.gitignore    
-	packet.json  			// 依赖包文件
-	server.js   			// node服务启动
-```
+装各种基础包：webpack等基础包
 
 >2、第二步
 
@@ -85,7 +66,7 @@ npm run newpage exist/your-page-name
 -	[x] 3、支持压缩less，js代码
 -	[x] 4、支持增量更新，利用好浏览器缓存
 -	[x] 5、打包前先删除以前的资源
--	[x] 6、postcss支持
+-	[x] 6、postcss支持添加prefix
 -	[x] 7、抽离css到单独文件包括vue中的css
 -	[ ] 8、支持gzip
 -	[x] 9、根据模块打包前的代码内容生成hash
@@ -99,6 +80,7 @@ npm run newpage exist/your-page-name
 -	[x] 17、支持预编译
 -	[x] 18、支持ESlint
 -	[x] 19、支持git hook提交代码之前跑eslint
+-   [x] 19、支持css去重
 
 
 ### 最后
