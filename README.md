@@ -68,7 +68,7 @@ npm run newpage exist/your-page-name
 -	[x] 5、打包前先删除以前的资源
 -	[x] 6、postcss支持添加prefix
 -	[x] 7、抽离css到单独文件包括vue中的css
--	[ ] 8、支持gzip
+-	[ ] 8、支持gzip  不支持了
 -	[x] 9、根据模块打包前的代码内容生成hash
 -	[x] 10、增加环境配置相关文件config
 -	[x] 11、支持zepto
@@ -77,10 +77,11 @@ npm run newpage exist/your-page-name
 -	[x] 14、如果没有对应页面的文件夹下面没有模版(index.html),启用unit/layout/index.html
 -	[x] 15、支持xtemplate
 -	[x] 16、支持组件化开发
--	[x] 17、支持预编译
+-	[x] 17、支持预编译(抽离静态库，增加hash)
 -	[x] 18、支持ESlint
 -	[x] 19、支持git hook提交代码之前跑eslint
 -   [x] 19、支持css去重
+-	[x] 20、打包进度提示
 
 
 ### 最后
