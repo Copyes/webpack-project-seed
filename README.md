@@ -82,6 +82,7 @@ npm run newpage exist/your-page-name
 -	[x] 19、支持git hook提交代码之前跑eslint
 -   [x] 19、支持css去重
 -	[x] 20、打包进度提示
+-   [x] 21、优化chunkid,采用chunk name代替id做到hash不变
 
 
 ### 最后
