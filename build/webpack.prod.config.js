@@ -119,7 +119,10 @@ var buildConfig = merge(baseWebpackConfig, {
                 discardComments: { removeAll: true }
             }
         }),
-        new webpack.NamedModulesPlugin(),
+        // hash替换module id
+        new webpack.HashedModuleIdsPlugin(),
+        // chunk name替换chunk id
+        new webpack.NamedChunksPlugin(),
         // 根据模块打包前的代码内容生成hash，而不是像Webpack那样根据打包后的内容生成hash
         //new WebpackMd5Hash(),
         // 提取公共模块
