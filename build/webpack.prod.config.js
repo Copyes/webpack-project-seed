@@ -88,6 +88,10 @@ var buildConfig = merge(baseWebpackConfig, {
             name: 'vendor',
             manifest: require('../dist/assets/vendor-manifest.json')
         }),
+        // hash替换module id
+        new webpack.HashedModuleIdsPlugin(),
+        // chunk name替换chunk id
+        // new webpack.NamedChunksPlugin(),
         new chunkIdPlugin(),
         // 通过范围提升，webpack可以根据你正在使用什么样的模块和一些其他条件来回退到正常的捆绑
         new webpack.optimize.ModuleConcatenationPlugin(),
@@ -119,10 +123,6 @@ var buildConfig = merge(baseWebpackConfig, {
                 discardComments: { removeAll: true }
             }
         }),
-        // hash替换module id
-        new webpack.HashedModuleIdsPlugin(),
-        // chunk name替换chunk id
-        new webpack.NamedChunksPlugin(),
         // 根据模块打包前的代码内容生成hash，而不是像Webpack那样根据打包后的内容生成hash
         //new WebpackMd5Hash(),
         // 提取公共模块
