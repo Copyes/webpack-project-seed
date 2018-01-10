@@ -1,44 +1,26 @@
 {
-    "root": true,
-    "parser": "babel-eslint",
-    "extends": "eslint:recommended",
-    "env": {
-        "browser": true,
-        "commonjs": true,
-        "es6": true,
-        "jquery": true,
-        "node": true
-    },
-    "parserOptions": {
-        "sourceType": "module"
-    },
-    "rules": {
-        "max-len": [
-            2,
-            180,
-            4
-        ],
-        "indent": [
-            "error",
-            4
-        ],
-        "comma-dangle": [ 
-            2,
-            "never"
-        ],
-        "quotes": [
-            "error",
-            "single",
-            { "allowTemplateLiterals": true }
-        ],
-        // "semi": [
-        //     "error",
-        //     "always"
-        // ],
-        "no-use-before-define": 0,
-        "no-param-reassign": 0,
-        "consistent-return": 0,
-        "no-console": 0,  //不允许使用console中的所有方法
-        "no-co nd-assign": 0
-    }
+  "root": true,
+  "parser": "babel-eslint",
+  "extends": "eslint:recommended",
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "jquery": true,
+    "node": true
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {
+    "max-len": [2, 180, 4],
+    "indent": ["error", 2],
+    "comma-dangle": [2, "never"],
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+    "no-use-before-define": 0,
+    "no-param-reassign": 0,
+    "consistent-return": 0,
+    "no-console": 0, //不允许使用console中的所有方法
+    "no-co nd-assign": 0
+  }
 }
