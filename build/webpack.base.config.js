@@ -1,5 +1,4 @@
 const path = require('path')
-// const vueLoader = require('./vue-loader.js')
 const { getEntries } = require('./entry.js')
 
 const ARGVS = process.env.npm_config_argv
@@ -18,16 +17,18 @@ var config = {
   module: {
     rules: [
       // {
-      //     test: /\.(js)$/,
-      //     use: [{
-      //     	loader: 'eslint-loader',
-      //     	options: {
-      //           	formatter: require('eslint-friendly-formatter')
-      //         }
-      //     }],
-      //     enforce: 'pre',
-      // 	exclude: /node_modules/,
-      //     include: path.join(__dirname, '../src'),
+      //   test: /\.(js)$/,
+      //   use: [
+      //     {
+      //       loader: 'eslint-loader',
+      //       options: {
+      //         formatter: require('eslint-friendly-formatter')
+      //       }
+      //     }
+      //   ],
+      //   enforce: 'pre',
+      //   exclude: /node_modules/,
+      //   include: path.join(__dirname, '../src')
       // },
       {
         test: /\.js$/,
@@ -36,8 +37,6 @@ var config = {
             loader: 'babel-loader?cacheDirectory'
           }
         ]
-        // include: path.join(__dirname, '../src')
-        // exclude: /node_modules/
       },
       {
         test: /\.xtpl$/,

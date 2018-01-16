@@ -11,6 +11,8 @@ module.exports = postcss.plugin('list-selectors', options => {
   let opts = options
   let notCache = {}
   let config = options.opts
+
+  console.log(config)
   return (cssRoot, postcssResult) => {
     // 判断js中是不是有css
     let isCssInJs = className => {

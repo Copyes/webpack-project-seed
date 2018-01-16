@@ -30,9 +30,6 @@ let devConfig = merge(baseWebpackConfig, {
             require('autoprefixer')({
               browsers: ['android >= 4.0', 'ios_saf >= 7.0'],
               remove: false
-            }),
-            require('stylelint')({
-              configFile: path.resolve(__dirname, '../.stylelintrc')
             })
           ]
         }
@@ -92,19 +89,10 @@ devConfig.plugins = devConfig.plugins.concat([
   new webpack.DefinePlugin({
     'process.env': config.dev.env
   }),
-  //new webpack.optimize.OccurrenceOrderPlugin(),
-  new webpack.HotModuleReplacementPlugin(),
-  new webpack.NoEmitOnErrorsPlugin()
-  // new vConsolePlugin({
-  //     enable: true
-  // })
-  // /* 全局shimming */
-  // new webpack.ProvidePlugin({
-  //     $: 'zepto',
-  //     Zepto: 'zepto',
-  //     'window.$': 'zepto',
-  //     'window.Zepto': 'zepto',
-  // }),
+  new webpack.NoEmitOnErrorsPlugin(),
+  new vConsolePlugin({
+    enable: true
+  })
 ])
 
 module.exports = devConfig

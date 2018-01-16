@@ -8,18 +8,19 @@ import Promise from 'es6-promise'
 alert(cube)
 let aa = 1
 new Promise((resolve, reject) => {
-    if(aa == 1){
-        resolve({
-            a: 1,
-            b: 2
-        })
-    }else{
-        reject()
-    }
-    
-}).then((data) => {
-    alert(data)
-}).catch((err) => {
-    alert(err)
+  if (aa == 1) {
+    resolve({
+      a: 1,
+      b: 2
+    })
+  } else {
+    reject()
+  }
 })
+  .then(data => {
+    alert(data)
+  })
+  .catch(err => {
+    alert(err)
+  })
 $('#a').html(new Xtemplate(test).render())

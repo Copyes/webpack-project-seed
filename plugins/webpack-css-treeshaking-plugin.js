@@ -11,7 +11,7 @@ class CssTreeShakingPlugin {
         return /\.css/.test(asset)
       })
 
-      let jsFiles = Object.keys(compilation.asset).filter(asset => {
+      let jsFiles = Object.keys(compilation.assets).filter(asset => {
         return /\.(js|jsx)$/.test(asset)
       })
 

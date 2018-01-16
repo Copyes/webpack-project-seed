@@ -8,6 +8,7 @@ const baseWebpackConfig = require('./webpack.base.config.js')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+// const CssTreeShakingPlugin = require('../plugins/webpack-css-treeshaking-plugin')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 // const WebpackMd5Hash = require('webpack-md5-hash')
@@ -91,12 +92,12 @@ var buildConfig = merge(baseWebpackConfig, {
     // hash替换module id
     new webpack.HashedModuleIdsPlugin(),
     // chunk name替换chunk id
-    // new webpack.NamedChunksPlugin(),
-    new chunkIdPlugin(),
+    new webpack.NamedChunksPlugin(),
+    // new chunkIdPlugin(),
     // 通过范围提升，webpack可以根据你正在使用什么样的模块和一些其他条件来回退到正常的捆绑
     new webpack.optimize.ModuleConcatenationPlugin(),
     // 为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID
-    new webpack.optimize.OccurrenceOrderPlugin(),
+    // new webpack.optimize.OccurrenceOrderPlugin(),
     //单独使用link标签加载css并设置路径，相对于output配置中的publickPath
     new ExtractTextPlugin({
       filename: 'static/css/[name]-[contenthash:16].css',
@@ -128,7 +129,7 @@ var buildConfig = merge(baseWebpackConfig, {
     // 提取公共模块
     new webpack.optimize.CommonsChunkPlugin({
       names: ['commons'], // 这公共代码的chunk名为'commons'
-      filename: 'assets/static/js/[name].bundle.[chunkhash:16].js', // 生成后的文件名，虽说用了[name]，但实际上就是'commons.bundle.js'了
+      filename: 'static/commons/js/[name].bundle.[chunkhash:16].js', // 生成后的文件名，虽说用了[name]，但实际上就是'commons.bundle.js'了
       minChunks: 4
     }),
     // new BundleAnalyzerPlugin(),
@@ -138,7 +139,6 @@ var buildConfig = merge(baseWebpackConfig, {
         filepath: 'dist/assets/dll/*.js',
         publicPath: '/assets/dll/',
         outputPath: '/assets/dll',
-        // files: config.libraryEntry.map(entry => entry + '.html'),
         includeSourcemap: false
       }
     ])

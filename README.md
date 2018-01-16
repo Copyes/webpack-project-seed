@@ -86,7 +86,7 @@ npm run newpage exist/your-page-name
 * [x] 19、支持 git hook 提交代码之前跑 eslint
 * [x] 19、支持 css 去重
 * [x] 20、打包进度提示
-* [x] 21、优化 chunkid, 采用 chunk name 代替 id 做到 hash 不变 ( 项目下有个 插件
+* [x] 21、优化 chunkid, 采用 chunk name 代替 id 做到 hash 不变 ( 项目下有个插件
       ，是用 hash 代替 name)
 * [x] 22、稳定 module id，采用 hash 的当时代替 id
 
