@@ -4,8 +4,7 @@
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const vConsolePlugin = require('vconsole-webpack-plugin')
-const path = require('path')
+// const vConsolePlugin = require('vconsole-webpack-plugin')
 const baseWebpackConfig = require('./webpack.base.config.js')
 const config = require('../config/index.js')
 const { getChunksObject } = require('./chunks.js')
@@ -33,6 +32,10 @@ let devConfig = merge(baseWebpackConfig, {
             })
           ]
         }
+      },
+      {
+        test: /\.html$/,
+        use: [{ loader: 'html-loader' }]
       },
       {
         test: /\.css$/,
@@ -89,10 +92,10 @@ devConfig.plugins = devConfig.plugins.concat([
   new webpack.DefinePlugin({
     'process.env': config.dev.env
   }),
-  new webpack.NoEmitOnErrorsPlugin(),
-  new vConsolePlugin({
-    enable: true
-  })
+  new webpack.NoEmitOnErrorsPlugin()
+  // new vConsolePlugin({
+  //   enable: true
+  // })
 ])
 
 module.exports = devConfig

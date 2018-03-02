@@ -16,7 +16,7 @@ module.exports = {
     vendor: ['xtemplate', 'es6-promise']
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin(),
+    // new config.optimization.minimize(),
     new CleanWebpackPlugin(['assets/dll'], {
       root: path.resolve('./dist')
     }),
