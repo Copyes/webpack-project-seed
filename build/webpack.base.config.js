@@ -50,11 +50,18 @@ var config = {
     mainFields: ['jsnext:main', 'main'],
     // 使用别名，方便在引入的时候写路径方便点
     alias: {
+<<<<<<< HEAD
       layout: path.resolve(__dirname, '../src/layout/'),
       libs: path.resolve(__dirname, '../src/libs'),
       commons: path.resolve(__dirname, '../src/common'),
+=======
+      libs: path.resolve(__dirname, '../src/libs'),
+      layout: path.resolve(__dirname, '../src/layout'),
+      commons: path.resolve(__dirname, '../src/commons'),
+>>>>>>> cbe1ce0edaa28c3b9d1257fdcf3751148b3169b2
       components: path.resolve(__dirname, '../src/components'),
-      src: path.resolve(__dirname, '../src/')
+      src: path.resolve(__dirname, '../src/'),
+      vue: 'vue/dist/vue.esm.js'
     }
     //modules:  ["node_modules"]//path.resolve(__dirname, 'node_modules'),
     // 自动解析文件后缀名
