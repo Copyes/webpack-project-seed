@@ -4,11 +4,7 @@
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-<<<<<<< HEAD
 const vConsolePlugin = require('vconsole-webpack-plugin')
-=======
-// const vConsolePlugin = require('vconsole-webpack-plugin')
->>>>>>> cbe1ce0edaa28c3b9d1257fdcf3751148b3169b2
 const baseWebpackConfig = require('./webpack.base.config.js')
 const config = require('../config/index.js')
 const { getChunksObject } = require('./chunks.js')
