@@ -5,7 +5,6 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const vConsolePlugin = require('vconsole-webpack-plugin')
-const path = require('path')
 const baseWebpackConfig = require('./webpack.base.config.js')
 const config = require('../config/index.js')
 const { getChunksObject } = require('./chunks.js')
@@ -86,6 +85,7 @@ chunksObject.forEach(item => {
 })
 
 devConfig.plugins = devConfig.plugins.concat([
+  new webpack.HotModuleReplacementPlugin(),
   new webpack.DefinePlugin({
     'process.env': config.dev.env
   }),

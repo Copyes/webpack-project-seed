@@ -50,8 +50,9 @@ var config = {
     mainFields: ['jsnext:main', 'main'],
     // 使用别名，方便在引入的时候写路径方便点
     alias: {
-      libs: path.resolve(__dirname, '../src/units/libs'),
-      commons: path.resolve(__dirname, '../src/units/commons'),
+      layout: path.resolve(__dirname, '../src/layout/'),
+      libs: path.resolve(__dirname, '../src/libs'),
+      commons: path.resolve(__dirname, '../src/common'),
       components: path.resolve(__dirname, '../src/components'),
       src: path.resolve(__dirname, '../src/')
     }

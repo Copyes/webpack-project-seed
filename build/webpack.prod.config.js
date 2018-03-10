@@ -15,13 +15,12 @@ const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsParallelPlugin = require('webpack-uglify-parallel')
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 // 将文件名作为 chunkID 以支持多页面打包下的缓存机制
-const chunkIdPlugin = require('../plugins/chunkid-by-filepath')
-
 const config = require('../config/index.js')
 const { getChunksObject } = require('./chunks.js')
 const path = require('path')
 
 var buildConfig = merge(baseWebpackConfig, {
+  // mode: 'production',
   devtool: false,
   bail: true,
   cache: true,
@@ -93,9 +92,6 @@ var buildConfig = merge(baseWebpackConfig, {
     new webpack.HashedModuleIdsPlugin(),
     // chunk name替换chunk id
     new webpack.NamedChunksPlugin(),
-    // new chunkIdPlugin(),
-    // 通过范围提升，webpack可以根据你正在使用什么样的模块和一些其他条件来回退到正常的捆绑
-    new webpack.optimize.ModuleConcatenationPlugin(),
     // 为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID
     // new webpack.optimize.OccurrenceOrderPlugin(),
     //单独使用link标签加载css并设置路径，相对于output配置中的publickPath
