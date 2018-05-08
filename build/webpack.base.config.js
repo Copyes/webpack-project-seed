@@ -1,42 +1,59 @@
 const path = require('path')
 const { getEntries } = require('./entry.js')
-
 const ARGVS = process.env.npm_config_argv
 const entries = getEntries(ARGVS)
-var config = {
+const vueLoaderConfig = require('./vue-loader')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const utils = require('./utils')
+console.log(entries)
+module.exports = {
   // 入口
   entry: entries,
   // 出口
   output: {
-    path: path.resolve(__dirname, '../dist/static'),
-    publicPath: '/',
-    filename: 'static/js/[name].[hash].js',
-    chunkFilename: 'static/js/[id].[hash].js'
+    path: path.resolve(__dirname, '../dist/')
+    // publicPath: '/',
+    // filename: 'static/js/[name].[hash].js',
+    // chunkFilename: 'static/js/[id].[hash].js'
   },
   // 解析模块,因为支持了git hook检测 所以可以考虑不要这个在线检测了。
   module: {
     rules: [
-      // {
-      //   test: /\.(js)$/,
-      //   use: [
-      //     {
-      //       loader: 'eslint-loader',
-      //       options: {
-      //         formatter: require('eslint-friendly-formatter')
-      //       }
-      //     }
-      //   ],
-      //   enforce: 'pre',
-      //   exclude: /node_modules/,
-      //   include: path.join(__dirname, '../src')
-      // },
       {
         test: /\.js$/,
-        use: [
-          {
-            loader: 'babel-loader?cacheDirectory'
-          }
-        ]
+        loader: 'babel-loader?cacheDirectory'
+      },
+      {
+        test: /\.vue$/,
+        /**
+         * loader配置的几种写法: https://www.bilibili.com/bangumi/play/ss12432
+         * 单个：loader + options或use: 字符串
+         * 多个：use/loaders: [string|[]单个]
+         */
+        loader: 'vue-loader',
+        // 包含在.vue文件内的css预处理器配置
+        options: vueLoaderConfig
+      },
+      // 单独配置的css预处理器配置
+      ...utils.styleLoaders({
+        sourceMap: true,
+        extract: process.env.NODE_ENV === 'production' ? true : false,
+        usePostCSS: true
+      }),
+      {
+        // 末尾\?.*匹配带?资源路径，css字体配置中可能带版本信息
+        test: /\.(png|jpg|jpeg|gif|svg)(\?.*)?$/,
+        /**
+         * url-loader
+         * 会配合 webpack 对资源引入路径进行复写，如将 css 提取成独立文件，可能出现 404 错误可查看 提取 js 中的 css 部分解决
+         * 会以 webpack 的输出路径为基本路径，以 name 配置进行具体输出
+         * limit 单位为 byte，小于这个大小的文件会编译为 base64 写进 js 或 html
+         */
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: 'static/img/[name].[hash:7].[ext]'
+        }
       },
       {
         test: /\.xtpl$/,
@@ -44,6 +61,16 @@ var config = {
       }
     ]
   },
+  plugins: [
+    // 开发模式下，会将文件写入内存
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../dist/static'),
+        to: 'static',
+        ignore: ['.*']
+      }
+    ])
+  ],
   resolve: {
     extensions: ['.js', '.vue', '.less'],
 
@@ -68,5 +95,4 @@ var config = {
   //     'window.$': "$"
   // }
 }
-
-module.exports = config
+// module.exports = config

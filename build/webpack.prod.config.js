@@ -20,7 +20,7 @@ const { getChunksObject } = require('./chunks.js')
 const path = require('path')
 
 var buildConfig = merge(baseWebpackConfig, {
-  // mode: 'production',
+  mode: 'production',
   devtool: false,
   bail: true,
   cache: true,
