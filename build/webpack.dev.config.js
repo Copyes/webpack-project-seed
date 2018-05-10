@@ -1,5 +1,6 @@
 'use strict'
 process.env.NODE_ENV = 'development'
+const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -10,11 +11,11 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const { getChunksObject } = require('./chunks.js')
 
 let entries = baseWebpackConfig.entry
-let devClient = './build/dev-client.js'
-// 热更新
-Object.keys(entries).forEach(function(name) {
-  baseWebpackConfig.entry[name] = [devClient].concat(baseWebpackConfig.entry[name])
-})
+// let devClient = './build/dev-client.js'
+// // 热更新
+// Object.keys(entries).forEach(function(name) {
+//   baseWebpackConfig.entry[name] = [devClient].concat(baseWebpackConfig.entry[name])
+// })
 
 let devConfig = merge(baseWebpackConfig, {
   /**
@@ -100,6 +101,7 @@ let devConfig = merge(baseWebpackConfig, {
     progress: true,
     // dev-server 服务路径
     contentBase: false,
+    // contentBase: path.join(__dirname, '../dist'), //网站的根目录为 根目录/dist
     compress: true,
     host: 'localhost',
     port: '8080',
@@ -113,8 +115,8 @@ let chunksObject = getChunksObject(entries)
 console.log(chunksObject)
 chunksObject.forEach(item => {
   let conf = {
-    filename: './' + item.pathname, // 生成的html存放路径，相对于publicPath
-    template: item.templatePath, // html模板路径,
+    filename: './' + item.pathname + '.html', // 生成的html存放路径，相对于publicPath
+    template: './' + item.templatePath, // html模板路径,
     inject: false //js插入的位置，true/'head'/'body'/false
   }
   if (item.pathname in entries) {

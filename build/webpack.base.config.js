@@ -3,18 +3,17 @@ const { getEntries } = require('./entry.js')
 const ARGVS = process.env.npm_config_argv
 const entries = getEntries(ARGVS)
 const vueLoaderConfig = require('./vue-loader')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 const utils = require('./utils')
-console.log(entries)
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+
 module.exports = {
+  context: path.resolve(__dirname, '../'),
   // 入口
   entry: entries,
   // 出口
   output: {
-    path: path.resolve(__dirname, '../dist/')
-    // publicPath: '/',
-    // filename: 'static/js/[name].[hash].js',
-    // chunkFilename: 'static/js/[id].[hash].js'
+    path: path.resolve(__dirname, '../dist/'),
+    publicPath: '/'
   },
   // 解析模块,因为支持了git hook检测 所以可以考虑不要这个在线检测了。
   module: {
@@ -62,10 +61,10 @@ module.exports = {
     ]
   },
   plugins: [
-    // 开发模式下，会将文件写入内存
+    // copy custom static assets
     new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, '../dist/static'),
+        from: path.resolve(__dirname, '../static'),
         to: 'static',
         ignore: ['.*']
       }

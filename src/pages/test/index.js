@@ -5,8 +5,8 @@ import 'components/test-component/test'
 //import cube from '@libs/test';
 import cube from 'libs/test'
 import Promise from 'es6-promise'
-alert(cube)
-let aa = 1
+console.log(1111)
+let aa = 2
 new Promise((resolve, reject) => {
   if (aa == 1) {
     resolve({
